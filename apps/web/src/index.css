@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Calistoga", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-background: #fafafa;
+  --color-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #0052ff;
+  --color-accent-secondary: #4d7cff;
+  --color-accent-foreground: #ffffff;
+  --color-border: #e2e8f0;
+  --color-card: #ffffff;
+  --color-ring: #0052ff;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .video-playback-container {
+    @apply relative aspect-video w-full overflow-hidden bg-black;
+  }
+
+  .video-playback-container-fill {
+    @apply relative h-full min-h-[180px] w-full overflow-hidden bg-black;
+  }
+
+  .video-playback-media {
+    @apply absolute inset-0 block h-full w-full object-contain object-center;
+  }
+}

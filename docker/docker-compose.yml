@@ -1,0 +1,36 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  livekit:
+    image: livekit/livekit-server:latest
+    command: --dev --bind 0.0.0.0 --config /etc/livekit.yaml
+    environment:
+      NODE_IP: ${LIVEKIT_NODE_IP:-127.0.0.1}
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml:ro
+    ports:
+      - "7880:7880"
+      - "7881:7881"
+      - "3478:3478/udp"
+      - "30000-30002:30000-30002/udp"
+      - "50000-50060:50000-50060/udp"
+
+  server:
+    build:
+      context: ../..
+      dockerfile: apps/server/Dockerfile
+    ports:
+      - "3841:3841"
+    environment:
+      PORT: 3841
+      REDIS_URL: redis://redis:6379
+      LIVEKIT_URL: ws://livekit:7880
+      LIVEKIT_API_KEY: devkey
+      LIVEKIT_API_SECRET: secret
+      CORS_ORIGINS: http://127.0.0.1:5173,http://localhost:5173
+    depends_on:
+      - redis
+      - livekit

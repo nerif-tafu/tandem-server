@@ -1,0 +1,30 @@
+{
+  "name": "@tandem/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.4",
+    "@tandem/shared": "workspace:*",
+    "hono": "^4.8.3",
+    "ioredis": "^5.6.1",
+    "livekit-server-sdk": "^2.13.0",
+    "pino": "^9.7.0",
+    "socket.io": "^4.8.1",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.32",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
