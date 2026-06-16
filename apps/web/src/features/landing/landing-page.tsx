@@ -55,29 +55,6 @@ export function LandingPage() {
           </Card>
         </div>
       </section>
-
-      <section className="border-t border-border bg-muted/30 px-6 py-16">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-3xl">How it works</h2>
-          <ol className="mt-8 space-y-4 text-left text-muted-foreground">
-            <li className="rounded-xl border border-border bg-card px-5 py-4">
-              <span className="font-medium text-foreground">1. Create a room</span> in the Tandem
-              desktop app and share the 5-character code.
-            </li>
-            <li className="rounded-xl border border-border bg-card px-5 py-4">
-              <span className="font-medium text-foreground">2. Start capturing</span> your
-              presentation, notes, and optional auxiliary feeds.
-            </li>
-            <li className="rounded-xl border border-border bg-card px-5 py-4">
-              <span className="font-medium text-foreground">3. Join from the web</span> to view
-              streams and control slides remotely.
-            </li>
-          </ol>
-          <Button type="button" className="mt-10" onClick={() => navigate('/wiki/getting-started')}>
-            Full setup guide
-          </Button>
-        </div>
-      </section>
     </main>
   );
 }
