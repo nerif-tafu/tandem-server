@@ -9,6 +9,7 @@ const EnvSchema = z.object({
   REDIS_URL: z.string().default('redis://127.0.0.1:6379'),
   ROOM_TTL_SECONDS: z.coerce.number().default(ROOM_TTL_SECONDS_DEFAULT),
   LIVEKIT_URL: z.string().default('ws://localhost:7880'),
+  LIVEKIT_PUBLIC_URL: z.string().optional(),
   LIVEKIT_API_KEY: z.string().default('devkey'),
   LIVEKIT_API_SECRET: z.string().default('secret'),
   CORS_ORIGINS: z.string().default('http://127.0.0.1:5173,http://localhost:5173'),

@@ -1,6 +1,6 @@
 import { AccessToken } from 'livekit-server-sdk';
 
-import { normalizeLiveKitUrl } from '@tandem/shared';
+import { resolveLiveKitUrlForClient } from '@tandem/shared';
 import type { ParticipantRole } from '@tandem/shared';
 
 import type { Env } from '../../env.js';
@@ -25,20 +25,11 @@ export class LiveKitService {
   }
 
   getClientUrl(clientHostname?: string): string {
-    if (clientHostname) {
-      const protocol = this.env.LIVEKIT_URL.startsWith('wss://') ? 'wss:' : 'ws:';
-      return `${protocol}//${clientHostname}:7880`;
-    }
-
-    let url = this.env.LIVEKIT_URL;
-
-    if (url.startsWith('http://')) {
-      url = url.replace('http://', 'ws://');
-    } else if (url.startsWith('https://')) {
-      url = url.replace('https://', 'wss://');
-    }
-
-    return normalizeLiveKitUrl(url);
+    return resolveLiveKitUrlForClient(
+      this.env.LIVEKIT_URL,
+      clientHostname,
+      this.env.LIVEKIT_PUBLIC_URL,
+    );
   }
 
   /** @deprecated Use getClientUrl for browser / SDK clients. */

@@ -454,6 +454,43 @@ function HostingSection() {
         LAN IP so clients receive reachable WebRTC candidates.
       </WikiP>
 
+      <WikiH3 id="hosting-livekit-proxy">LiveKit behind a reverse proxy</WikiH3>
+      <WikiP>
+        In production you often want signaling on HTTPS port 443 (via Traefik, nginx, or similar)
+        while WebRTC media still uses direct UDP and TCP ports for best performance. Tandem supports
+        this split with two URLs:
+      </WikiP>
+      <WikiUl>
+        <li>
+          <code className="font-mono text-sm">LIVEKIT_URL</code>: internal URL the Tandem server uses
+          to reach LiveKit (Docker service name, cluster DNS, etc.). Example:{' '}
+          <code className="font-mono text-sm">ws://livekit:7880</code>
+        </li>
+        <li>
+          <code className="font-mono text-sm">LIVEKIT_PUBLIC_URL</code>: browser-facing WebSocket URL
+          returned to clients. Example: <code className="font-mono text-sm">wss://livekit.tafu.casa</code>{' '}
+          with no <code className="font-mono text-sm">:7880</code> in the address.
+        </li>
+      </WikiUl>
+      <WikiP>
+        When <code className="font-mono text-sm">LIVEKIT_PUBLIC_URL</code> is set, every media token
+        response (REST and Socket.IO) uses it. Without it, local dev still falls back to{' '}
+        <code className="font-mono text-sm">wss://&lt;client-host&gt;:7880</code> when the browser
+        sends an Origin header.
+      </WikiP>
+      <WikiP>Example production env:</WikiP>
+      <WikiCode>{`LIVEKIT_URL=ws://livekit:7880
+LIVEKIT_PUBLIC_URL=wss://livekit.example.com
+LIVEKIT_API_KEY=your-key
+LIVEKIT_API_SECRET=your-secret`}</WikiCode>
+      <WikiP>
+        Point your reverse proxy at LiveKit&apos;s signaling port (7880 inside the network). Clients
+        connect to <code className="font-mono text-sm">wss://livekit.example.com</code> for signaling.
+        Video and audio still flow over LiveKit&apos;s media ports on the host; open those in your
+        firewall and configure TURN in LiveKit if clients are behind strict NATs. The Tandem server
+        does not proxy media traffic.
+      </WikiP>
+
       <WikiH3 id="hosting-env">Environment variables</WikiH3>
       <WikiUl>
         <li>
@@ -465,11 +502,18 @@ function HostingSection() {
           <code className="font-mono text-sm">redis://127.0.0.1:6379</code> in dev)
         </li>
         <li>
-          <code className="font-mono text-sm">LIVEKIT_URL</code>,{' '}
-          <code className="font-mono text-sm">LIVEKIT_API_KEY</code>, and{' '}
-          <code className="font-mono text-sm">LIVEKIT_API_SECRET</code>: your LiveKit server (dev
-          defaults to <code className="font-mono text-sm">ws://localhost:7880</code> with key{' '}
-          <code className="font-mono text-sm">devkey</code> / secret{' '}
+          <code className="font-mono text-sm">LIVEKIT_URL</code>: internal LiveKit URL for the server
+          (default <code className="font-mono text-sm">ws://localhost:7880</code> in dev)
+        </li>
+        <li>
+          <code className="font-mono text-sm">LIVEKIT_PUBLIC_URL</code>: optional browser-facing
+          signaling URL when LiveKit is behind HTTPS on port 443 (e.g.{' '}
+          <code className="font-mono text-sm">wss://livekit.example.com</code>)
+        </li>
+        <li>
+          <code className="font-mono text-sm">LIVEKIT_API_KEY</code> and{' '}
+          <code className="font-mono text-sm">LIVEKIT_API_SECRET</code>: LiveKit API credentials (dev
+          defaults: <code className="font-mono text-sm">devkey</code> /{' '}
           <code className="font-mono text-sm">secret</code>)
         </li>
         <li>
