@@ -128,6 +128,13 @@ function DesktopSection() {
         <li><strong className="text-foreground">Webcam:</strong> share a camera</li>
         <li><strong className="text-foreground">NDI:</strong> share a network video source (Windows only)</li>
       </WikiUl>
+      <WikiH3 id="windows-install">Windows install</WikiH3>
+      <WikiP>
+        Download the Windows installer from the download page and run{' '}
+        <code className="font-mono text-sm">Tandem-windows-x64-setup.exe</code>. The installer
+        places the app and the NDI runtime DLL in the same folder so NDI capture works out of the
+        box.
+      </WikiP>
       <WikiH3 id="stream-slots">Stream slots</WikiH3>
       <WikiP>Each room supports up to four named slots:</WikiP>
       <WikiTable>

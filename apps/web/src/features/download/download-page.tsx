@@ -21,7 +21,7 @@ interface DesktopReleaseInfo {
 const PLATFORM_ORDER: DesktopDownload['platform'][] = ['windows', 'macos', 'linux'];
 
 const PLATFORM_DESCRIPTIONS: Record<DesktopDownload['platform'], string> = {
-  windows: 'Portable executable for Windows 10 and later.',
+  windows: 'Windows installer. Run the setup exe to install Tandem and the bundled NDI runtime.',
   macos: 'Disk image for Apple Silicon and Intel Macs.',
   linux: 'AppImage for most x86_64 distributions.',
 };
