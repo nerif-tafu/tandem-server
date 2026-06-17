@@ -33,7 +33,11 @@ export function getCorsOrigins(env: Env): string[] {
 const LOCAL_DEV_ORIGIN_PATTERN = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/;
 const LAN_DEV_ORIGIN_PATTERN =
   /^https?:\/\/(192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(:\d+)?$/;
-const TAURI_ORIGINS = ['https://tauri.localhost', 'tauri://localhost'] as const;
+const TAURI_ORIGINS = [
+  'http://tauri.localhost',
+  'https://tauri.localhost',
+  'tauri://localhost',
+] as const;
 
 export function isAllowedCorsOrigin(env: Env, origin: string | undefined): boolean {
   if (!origin) {
