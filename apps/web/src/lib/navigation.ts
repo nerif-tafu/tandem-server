@@ -12,6 +12,8 @@ export type WikiSectionId =
   | 'rooms'
   | 'streaming'
   | 'remote-clicker'
+  | 'local-development'
+  | 'hosting'
   | 'api-rest'
   | 'api-socket'
   | 'errors';
@@ -50,6 +52,8 @@ export function parseWikiSection(pathname: string): WikiSectionId {
     'rooms',
     'streaming',
     'remote-clicker',
+    'local-development',
+    'hosting',
     'api-rest',
     'api-socket',
     'errors',

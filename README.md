@@ -1,22 +1,22 @@
 # Tandem Server
 
-Web viewer, REST API, Socket.IO realtime, and LiveKit integration for [Tandem](https://github.com/nerif-tafu/tandem-desktop).
+The web viewer, API, and realtime layer for [Tandem](https://github.com/nerif-tafu/tandem-desktop). Handles rooms, slide commands, and video streaming via LiveKit.
 
-## Stack
+## What's in this repo
 
-- **API** — Hono (`apps/server`)
-- **Web** — React + Vite (`apps/web`)
-- **Shared protocol** — `@tandem/shared` (`packages/shared`)
+- **API** (`apps/server`): Hono HTTP server and Socket.IO
+- **Web** (`apps/web`): React viewer and landing site
+- **Shared** (`packages/shared`): Types and protocol schemas used by both repos
 
 ## Development
 
 ```bash
 pnpm install
 pnpm dev:server   # API on :3841
-pnpm dev:web      # Web on :5173 (proxies /api to server)
+pnpm dev:web      # Web on :5173 (proxies /api to the server)
 ```
 
-Start Redis and LiveKit via Docker:
+You also need Redis and LiveKit running locally. The easiest way is Docker:
 
 ```bash
 cp docker/.env.example docker/.env
@@ -25,12 +25,12 @@ docker compose -f docker/docker-compose.yml up
 
 ## Production
 
-Build the web app and server, then run the server with `STATIC_WEB_DIR` pointing at the web build output. A multi-stage Docker image is published from this repo (see `.github/workflows/docker-server.yml`).
+Build the web app and server, then point `STATIC_WEB_DIR` at the web build output. This repo publishes a multi-stage Docker image; see `.github/workflows/docker-server.yml`.
 
 ## Desktop downloads
 
-The web app exposes `/download`, which lists the latest release assets from [tandem-desktop](https://github.com/nerif-tafu/tandem-desktop). Configure the source repo with `DESKTOP_RELEASES_REPO` (default: `nerif-tafu/tandem-desktop`).
+The site serves a `/download` page that pulls the latest release from [tandem-desktop](https://github.com/nerif-tafu/tandem-desktop). Set `DESKTOP_RELEASES_REPO` if you host your own desktop builds (default: `nerif-tafu/tandem-desktop`).
 
 ## Related repo
 
-- [tandem-desktop](https://github.com/nerif-tafu/tandem-desktop) — Tauri desktop publisher
+- [tandem-desktop](https://github.com/nerif-tafu/tandem-desktop): desktop publisher app

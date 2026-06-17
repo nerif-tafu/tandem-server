@@ -18,8 +18,7 @@ export function WikiPage() {
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10 lg:flex-row lg:gap-12">
       <aside className="lg:w-56 lg:shrink-0">
-        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Documentation</p>
-        <nav className="mt-4 space-y-1">
+        <nav className="space-y-1">
           {WIKI_NAV.map((item) => {
             const showGroup = item.group !== lastGroup;
             lastGroup = item.group;
