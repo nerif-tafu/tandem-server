@@ -1,6 +1,23 @@
 import { Button, Card } from '../../components/ui';
 import { navigate } from '../../lib/navigation';
 
+const demoVideoProps = {
+  autoPlay: true,
+  loop: true,
+  muted: true,
+  playsInline: true,
+  preload: 'auto' as const,
+};
+
+function DemoVideoSources() {
+  return (
+    <>
+      <source src="/tandem.webm" type="video/webm" />
+      <source src="/tandem.mp4" type="video/mp4" />
+    </>
+  );
+}
+
 export function LandingPage() {
   return (
     <main>
@@ -26,6 +43,35 @@ export function LandingPage() {
             <Button type="button" variant="secondary" onClick={() => navigate('/wiki')}>
               Read the wiki
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-center font-display text-3xl md:text-4xl">See it in action</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
+            Watch how to stream PPTs, notes, and auxiliary feeds to co-presenters and viewers in
+            real time.
+          </p>
+          <div className="relative mt-10 p-[30px]">
+            <div className="relative aspect-video w-full">
+              <video
+                aria-hidden
+                tabIndex={-1}
+                className="demo-video-glow pointer-events-none absolute inset-0 block h-full w-full object-contain object-center"
+                {...demoVideoProps}
+              >
+                <DemoVideoSources />
+              </video>
+              <video
+                className="relative z-10 block h-full w-full object-contain object-center"
+                {...demoVideoProps}
+              >
+                <DemoVideoSources />
+                Your browser does not support embedded video.
+              </video>
+            </div>
           </div>
         </div>
       </section>

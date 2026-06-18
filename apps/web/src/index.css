@@ -49,4 +49,9 @@
   .video-playback-media {
     @apply absolute inset-0 block h-full w-full object-contain object-center;
   }
+
+  .demo-video-glow {
+    filter: blur(30px);
+    opacity: 0.65;
+  }
 }
