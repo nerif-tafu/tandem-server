@@ -32,7 +32,7 @@ interface GitHubRelease {
 const PLATFORM_PATTERNS: Record<DesktopPlatform, RegExp[]> = {
   windows: [/Tandem-windows.*setup\.exe$/i, /Tandem.*_x64-setup\.exe$/i, /\.msi$/i, /Tandem-windows.*\.zip$/i, /\.exe$/i],
   macos: [/\.dmg$/i],
-  linux: [/\.AppImage$/i, /\.deb$/i],
+  linux: [/\.deb$/i],
 };
 
 const PLATFORM_LABELS: Record<DesktopPlatform, string> = {

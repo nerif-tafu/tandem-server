@@ -8,6 +8,10 @@ export default defineConfig({
     host: true,
     port: 5173,
     proxy: {
+      '/install.sh': {
+        target: 'http://127.0.0.1:3841',
+        changeOrigin: true,
+      },
       '/api': {
         target: 'http://127.0.0.1:3841',
         changeOrigin: true,

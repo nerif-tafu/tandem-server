@@ -43,7 +43,7 @@ export function resolveLiveKitUrlForClient(
   if (clientHostname) {
     const coerced = coerceWsUrl(serverUrl);
     const protocol = coerced.startsWith('wss://') ? 'wss:' : 'ws:';
-    return `${protocol}//${clientHostname}:7880`;
+    return normalizeLiveKitUrl(`${protocol}//${clientHostname}:7880`);
   }
 
   return normalizeLiveKitUrl(coerceWsUrl(serverUrl));

@@ -23,7 +23,7 @@ const PLATFORM_ORDER: DesktopDownload['platform'][] = ['windows', 'macos', 'linu
 const PLATFORM_DESCRIPTIONS: Record<DesktopDownload['platform'], string> = {
   windows: 'Windows installer. Run the setup exe to install Tandem and the bundled NDI runtime.',
   macos: 'Disk image for Apple Silicon and Intel Macs.',
-  linux: 'AppImage for most x86_64 distributions.',
+  linux: 'Debian package for Ubuntu 22.04+ and Debian 12+. Installs runtime dependencies via apt.',
 };
 
 function formatBytes(bytes: number | null): string | null {
@@ -45,6 +45,14 @@ function formatBytes(bytes: number | null): string | null {
 
 function formatDate(iso: string): string {
   return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(iso));
+}
+
+function linuxInstallFileName(fileName: string): string {
+  return fileName.endsWith('.deb') ? fileName : 'Tandem-linux-amd64.deb';
+}
+
+function linuxOneLineInstall(origin: string): string {
+  return `curl -fsSL ${origin}/install.sh | sudo bash`;
 }
 
 export function DownloadPage() {
@@ -146,6 +154,22 @@ export function DownloadPage() {
                     {download.fileName}
                     {formatBytes(download.sizeBytes) ? ` · ${formatBytes(download.sizeBytes)}` : ''}
                   </p>
+                  {download.platform === 'linux' ? (
+                    <div className="mt-3 space-y-2 text-sm text-muted-foreground">
+                      <p>
+                        To install, run{' '}
+                        <code className="font-mono text-xs text-foreground">
+                          sudo apt install ./{linuxInstallFileName(download.fileName)}
+                        </code>
+                      </p>
+                      <p>
+                        Or in one line:{' '}
+                        <code className="block overflow-x-auto rounded-lg bg-muted px-3 py-2 font-mono text-xs text-foreground">
+                          {linuxOneLineInstall(typeof window !== 'undefined' ? window.location.origin : 'https://tandem.tafu.casa')}
+                        </code>
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
                 <a
                   href={download.downloadUrl}

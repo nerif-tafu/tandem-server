@@ -20,6 +20,7 @@ import { LiveKitService } from './features/media/livekit-service.js';
 import { kickPublisherWithSync } from './features/rooms/room-realtime.js';
 import { RoomService } from './features/rooms/room-service.js';
 import { fetchLatestDesktopRelease } from './features/downloads/desktop-releases.js';
+import { buildLinuxInstallScript } from './features/downloads/linux-install-script.js';
 import { logger } from './lib/logger.js';
 
 export function createApp(
@@ -56,6 +57,28 @@ export function createApp(
         { error: { code: 'UPSTREAM_ERROR', message: 'Could not load desktop downloads' } },
         502,
       );
+    }
+  });
+
+  app.get('/install.sh', async (context) => {
+    try {
+      const release = await fetchLatestDesktopRelease(env.DESKTOP_RELEASES_REPO);
+      const linux = release?.downloads.find((download) => download.platform === 'linux');
+      if (!linux) {
+        return context.text('No Linux desktop release is available yet.\n', 404, {
+          'Content-Type': 'text/plain; charset=utf-8',
+        });
+      }
+
+      return context.text(buildLinuxInstallScript(linux.downloadUrl), 200, {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=300',
+      });
+    } catch (error) {
+      logger.error({ error }, 'Failed to build Linux install script');
+      return context.text('Could not load install script.\n', 502, {
+        'Content-Type': 'text/plain; charset=utf-8',
+      });
     }
   });
 
