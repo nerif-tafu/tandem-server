@@ -212,17 +212,7 @@ export function useLiveKitViewer(
 
 
 
-        await room.connect(url, token, {
-
-          peerConnectionTimeout: 30_000,
-
-          rtcConfig: {
-
-            iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
-
-          },
-
-        });
+        await room.connect(url, token, { peerConnectionTimeout: 30_000 });
 
       } catch (error) {
 

@@ -126,7 +126,7 @@ function DesktopSection() {
       <WikiUl>
         <li><strong className="text-foreground">Screen:</strong> share a display</li>
         <li><strong className="text-foreground">Webcam:</strong> share a camera</li>
-        <li><strong className="text-foreground">NDI:</strong> share a network video source (Windows only)</li>
+        <li><strong className="text-foreground">NDI:</strong> share a network video source (Windows and macOS)</li>
       </WikiUl>
       <WikiH3 id="windows-install">Windows install</WikiH3>
       <WikiP>
@@ -134,6 +134,23 @@ function DesktopSection() {
         <code className="font-mono text-sm">Tandem-windows-x64-setup.exe</code>. The installer
         places the app and the NDI runtime DLL in the same folder so NDI capture works out of the
         box.
+      </WikiP>
+      <WikiH3 id="linux-install">Linux install</WikiH3>
+      <WikiP>
+        Download the <code className="font-mono text-sm">.deb</code> from the{' '}
+        <a href="/download" className="text-accent underline-offset-2 hover:underline">
+          download page
+        </a>
+        . On Ubuntu 22.04+ or Debian 12+, install the package and its dependencies with:
+      </WikiP>
+      <WikiCode>{`sudo apt install ./Tandem-linux-amd64.deb`}</WikiCode>
+      <WikiP>Or install in one line (Ubuntu/Debian):</WikiP>
+      <WikiCode>{`curl -fsSL https://tandem.tafu.casa/install.sh | sudo bash`}</WikiCode>
+      <WikiP>
+        The package pulls in GStreamer (for LiveKit publishing), PipeWire, and the desktop portal
+        for screen capture. GNOME users should also have{' '}
+        <code className="font-mono text-sm">xdg-desktop-portal-gnome</code> installed (recommended
+        automatically by apt).
       </WikiP>
       <WikiH3 id="stream-slots">Stream slots</WikiH3>
       <WikiP>Each room supports up to four named slots:</WikiP>
@@ -542,7 +559,10 @@ LIVEKIT_API_SECRET=your-secret`}</WikiCode>
       <WikiP>Build installers from tandem-desktop:</WikiP>
       <WikiCode>{`pnpm --filter @tandem/shared build
 pnpm --filter @tandem/client build`}</WikiCode>
-      <WikiP>Tag and push to publish on GitHub Releases:</WikiP>
+      <WikiP>
+        Linux ships as a <code className="font-mono text-sm">.deb</code> for Ubuntu/Debian; Windows
+        and macOS use their usual installer formats. Tag and push to publish on GitHub Releases:
+      </WikiP>
       <WikiCode>{`git tag v1.0.0
 git push origin v1.0.0`}</WikiCode>
       <WikiP>
