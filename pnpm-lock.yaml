@@ -16,13 +16,13 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: ^1.14.4
-        version: 1.19.14(hono@4.12.25)
+        version: 1.19.14(hono@4.12.31)
       '@tandem/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       hono:
         specifier: ^4.8.3
-        version: 4.12.25
+        version: 4.12.31
       ioredis:
         specifier: ^5.6.1
         version: 5.11.1
@@ -1038,8 +1038,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  hono@4.12.25:
-    resolution: {integrity: sha512-2NFaIyNVgJmBs/ecmtGzlmluTFs5cHEWGTdu0t1HBwYzoGXOL5nUQBRMXsXWla5i4KkG//QMzVP88m1+I3fdAQ==}
+  hono@4.12.31:
+    resolution: {integrity: sha512-zJIHFrl6bq3RDd2YusFNCDlM8qUprxKswyi/OPzPyzKDdyBXDqWx8bZlZ7R+saTdSTatUmb3O7K4SspGPaEOQg==}
     engines: {node: '>=16.9.0'}
 
   ioredis@5.11.1:
@@ -1784,9 +1784,9 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
-  '@hono/node-server@1.19.14(hono@4.12.25)':
+  '@hono/node-server@1.19.14(hono@4.12.31)':
     dependencies:
-      hono: 4.12.25
+      hono: 4.12.31
 
   '@ioredis/commands@1.10.0': {}
 
@@ -2271,7 +2271,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  hono@4.12.25: {}
+  hono@4.12.31: {}
 
   ioredis@5.11.1:
     dependencies:
