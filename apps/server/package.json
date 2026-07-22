@@ -12,7 +12,7 @@
     "lint": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@hono/node-server": "^1.14.4",
+    "@hono/node-server": "^2.0.5",
     "@tandem/shared": "workspace:*",
     "hono": "^4.8.3",
     "ioredis": "^5.6.1",
